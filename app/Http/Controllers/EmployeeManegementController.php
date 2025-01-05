@@ -74,7 +74,8 @@ class EmployeeManegementController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        $employee = '';
+        return view('employee.create',compact('employee'));
     }
 
     /**

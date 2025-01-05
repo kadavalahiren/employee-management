@@ -102,9 +102,8 @@
                                 <div class="mb-3 col-md-4">
                                     <h6>Country Code<span class="required-color">*</span></h6>
                                     <select name="country_code" id="country_code"  style="width: 100%; padding: 10px; font-size: 16px;">
-                                        <option value="+1" {{ old('country_code', $employee->country_code) == '+1' ? 'selected' : '' }}>US</option>
-                                        <option value="+91" {{ old('country_code', $employee->country_code) == '+91' ? 'selected' : '' }}>India</option>
-
+                                    <option value="+1" {{ isset($employee->country_code) && $employee->country_code == '+1' ? 'selected' : '' }}>US</option>
+                                    <option value="+91" {{ isset($employee->country_code) && $employee->country_code == '+91' ? 'selected' : '' }}>India</option>
                                     </select>
                                     <div class="text-muted">Enter Country Code here</div>
                                 </div>
@@ -119,13 +118,15 @@
                                 <div class="mb-3 col-md-4">
                                     <h6>Gender<span class="required-color">*</span></h6>
                                     <select name="gender" id="gender"  style="width: 100%; padding: 10px; font-size: 16px;">
-                                        <option value="Male" {{ old('gender', $employee->gender) == 'Male' ? 'selected' : '' }}>Male</option>
-                                        <option value="Female" {{ old('gender', $employee->gender) == 'Female' ? 'selected' : '' }}>Female</option>
-                                        <option value="Other" {{ old('gender', $employee->gender) == 'Other' ? 'selected' : '' }}>Other</option>
+                                        <option value="Male" {{ isset($employee->gender) && $employee->gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                        <option value="Female" {{ isset($employee->gender) && $employee->gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                        <option value="Other" {{ isset($employee->gender) && $employee->gender == 'Other' ? 'selected' : '' }}>Other</option>
                                     </select>
                                     <div class="text-muted">Select Gender here</div>
                                 </div>
-                                @php $hobbys = json_decode($employee->hobby); @endphp
+                                @php
+                                $hobbys = !empty($employee->hobby) ? json_decode($employee->hobby) : [];
+                                @endphp
                                 <div class="mb-3 col-md-12">
                                     <h6>Hobby<span class="required-color">*</span></h6>
                                         <label><input type="checkbox" name="hobby[]" value="Reading" {{ is_array($hobbys) && in_array('Reading', $hobbys) ? 'checked' : '' }}> Reading</label>
